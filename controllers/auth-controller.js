@@ -12,8 +12,16 @@ async function postUserSignup(req, res, next) {
         const validJSONPayload = authValidator(req.body);
 
         if (!validJSONPayload) {
-            console.error(authValidator.errors);
+            console.error("error here:", authValidator.errors);
+
+            res.json({ message: authValidator.errors[0].message });
+
+            return;
         }
+
+        const { email, password } = req.body;
+
+        res.json({ message: "You send a req to sign-up!" });
     }
     catch (err) {
         next(err);
