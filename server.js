@@ -7,6 +7,11 @@ const authRouter = require("./routes/auth-router");
 
 const app = express();
 
+if (process.env.NODE_ENV === "development") {
+    const morgan = require("morgan");
+    app.use(morgan("dev"));
+}
+
 // middleware to parse JSON req bodies
 app.use(express.json());
 // enable API router
