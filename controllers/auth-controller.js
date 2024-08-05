@@ -19,7 +19,18 @@ async function postUserSignup(req, res, next) {
             return res.status(400).json({ error: "Email already exists." });
         }
 
-        res.json({ message: "Success! You created an account!" });
+        const saltRounds = 12;
+        const hashedPassword = await bcrypt.hash(password, saltRounds);
+
+        // add new user to db
+        await db.none(`
+            INSERT INTO app_user
+                (email, hashed_password)
+            VALUES
+                ($<email>, $<hashedPassword>);
+            `, { email, hashedPassword });
+
+        res.status(201).json({ message: "Success! You created an account!" });
     }
     catch (err) {
         next(err);
