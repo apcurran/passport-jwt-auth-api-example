@@ -40,7 +40,12 @@ async function postUserSignup(req, res, next) {
 
 /** @type {import("express").RequestHandler} */
 async function postLogIn(req, res, next) {
-
+    try {
+        const { email, password } = req.body;
+    }
+    catch (err) {
+        next(err);
+    }
 }
 
 module.exports = {
