@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 
 const { db } = require("../db/index");
 
+/** @type {import("express").RequestHandler} */
 async function postUserSignup(req, res, next) {
     try {
         const { email, password } = req.body;
@@ -37,6 +38,12 @@ async function postUserSignup(req, res, next) {
     }
 }
 
+/** @type {import("express").RequestHandler} */
+async function postLogIn(req, res, next) {
+
+}
+
 module.exports = {
     postUserSignup,
+    postLogIn,
 };

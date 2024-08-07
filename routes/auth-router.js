@@ -8,4 +8,6 @@ const { validateAuth } = require("../middleware/validate-auth-data");
 
 router.post("/sign-up", validateAuth, authController.postUserSignup);
 
+router.post("/log-in", validateAuth, authController.postLogIn);
+
 module.exports = router;
