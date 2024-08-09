@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node --env-file=.env server.js",
     "dev": "nodemon --env-file=.env server.js",
+    "test:dev": "nodemon --env-file=.test.env server.js",
     "cy:open": "npx cypress open"
   },
   "author": "Alex Curran",
