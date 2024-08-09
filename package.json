@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node --env-file=.env server.js",
-    "dev": "nodemon --env-file=.env server.js"
+    "dev": "nodemon --env-file=.env server.js",
+    "cy:open": "npx cypress open"
   },
   "author": "Alex Curran",
   "license": "ISC",
@@ -22,6 +23,7 @@
   "devDependencies": {
     "@eslint/js": "^9.7.0",
     "@stylistic/eslint-plugin": "^2.3.0",
+    "cypress": "^13.13.2",
     "eslint": "^9.7.0",
     "globals": "^15.8.0",
     "morgan": "^1.10.0"

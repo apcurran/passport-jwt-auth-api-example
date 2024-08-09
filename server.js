@@ -7,7 +7,7 @@ const authRouter = require("./routes/auth-router");
 
 const app = express();
 
-if (process.env.NODE_ENV === "development") {
+if (process.env.NODE_ENV === "development" || process.env.NODE_ENV === "testing") {
     const morgan = require("morgan");
     app.use(morgan("dev"));
 }
