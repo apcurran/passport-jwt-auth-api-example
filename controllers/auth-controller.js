@@ -32,8 +32,7 @@ async function postUserSignup(req, res, next) {
             `, { email, hashedPassword });
 
         res.status(201).json({ message: "Success! You created an account!" });
-    }
-    catch (err) {
+    } catch (err) {
         next(err);
     }
 }
@@ -42,8 +41,7 @@ async function postUserSignup(req, res, next) {
 async function postLogIn(req, res, next) {
     try {
         const { email, password } = req.body;
-    }
-    catch (err) {
+    } catch (err) {
         next(err);
     }
 }
