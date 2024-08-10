@@ -8,6 +8,7 @@ export default [
         quotes: "double",
         semi: true,
         arrowParens: true,
+        braceStyle: "1tbs",
     }),
     {
         files: ["**/*.js"],
