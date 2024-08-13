@@ -25,14 +25,6 @@ module.exports = defineConfig({
                             console.error("Something went wrong in users reset:", err);
                         });
                 },
-                async logger() {
-                    console.log(process.env.DB_PASSWORD);
-
-                    // const myUser = await db.one("SELECT * FROM app_user");
-                    // console.log(myUser);
-
-                    return null;
-                },
             });
         },
     },
