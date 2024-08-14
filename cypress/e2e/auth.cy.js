@@ -37,4 +37,17 @@ describe("Auth", () => {
             expect(response.body).to.deep.equal({ error: "Email is not found." });
         });
     });
+
+    it("should fail when user tries to send an incorrect password to log-in", () => {
+        cy.request({
+            method: "POST",
+            url: "/auth/log-in",
+            body: { email: "bobtest@example.com", password: "not_correct123" },
+            failOnStatusCode: false,
+        }).then((response) => {
+            expect(response.status).to.eq(400);
+
+            expect(response.body).to.deep.equal({ error: "Invalid credentials provided. Please check your email and password then try again." });
+        });
+    });
 });
