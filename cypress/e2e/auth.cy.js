@@ -25,6 +25,16 @@ describe("Auth", () => {
 
     // log-in route
     it("should fail when given an email that does not exist for any registered users", () => {
+        cy.request({
+            method: "POST",
+            url: "/auth/log-in",
+            body: { email: "not_here@example.com", password: "testing123" },
+            failOnStatusCode: false,
+        }).then((response) => {
+            // client error
+            expect(response.status).to.eq(400);
 
+            expect(response.body).to.deep.equal({ error: "Email is not found." });
+        });
     });
 });
