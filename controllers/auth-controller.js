@@ -17,6 +17,8 @@ async function postUserSignup(req, res, next) {
             `, { email });
 
         if (emailExists) {
+            // duplicate accounts should not be made,
+            // return an error instead
             return res.status(400).json({ error: "Email already exists." });
         }
 
@@ -41,6 +43,18 @@ async function postUserSignup(req, res, next) {
 async function postLogIn(req, res, next) {
     try {
         const { email, password } = req.body;
+        const user = await db.oneOrNone(`
+            SELECT
+                user_id,
+                email,
+                hashed_password
+            FROM app_user
+            WHERE email = $<email>;
+            `, { email });
+
+        if (!user) {
+            return res.status(400).json({ error: "Email is not found." });
+        }
     } catch (err) {
         next(err);
     }
