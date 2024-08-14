@@ -3,6 +3,7 @@ describe("Auth", () => {
         cy.task("resetDbUsers");
     });
 
+    // sign-up route
     it("creates a new user with an email and password", () => {
         cy.request("POST", "/auth/sign-up", { email: "bobtest@example.com", password: "testing123" })
             .then((response) => {
@@ -20,5 +21,10 @@ describe("Auth", () => {
 
                 expect(response.body).to.deep.equal({ error: "Email already exists." });
             });
+    });
+
+    // log-in route
+    it("should fail when given an email that does not exist for any registered users", () => {
+
     });
 });
