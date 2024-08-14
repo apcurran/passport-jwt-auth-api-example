@@ -55,6 +55,12 @@ async function postLogIn(req, res, next) {
         if (!user) {
             return res.status(400).json({ error: "Email is not found." });
         }
+
+        const isValidPassword = await bcrypt.compare(password, user.hashed_password);
+
+        if (!isValidPassword) {
+            return res.status(400).json({ error: "Invalid credentials provided. Please check your email and password then try again." });
+        }
     } catch (err) {
         next(err);
     }
