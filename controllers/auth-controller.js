@@ -61,6 +61,15 @@ async function postLogIn(req, res, next) {
         if (!isValidPassword) {
             return res.status(400).json({ error: "Invalid credentials provided. Please check your email and password then try again." });
         }
+
+        // create token and send back as response data
+        const token = jwt.sign(
+            { userId: user.user_id, email: user.email },
+            process.env.TOKEN_SECRET,
+            { expiresIn: "2h" },
+        );
+
+        res.status(200).json({ accessToken: token, userId: user.user_id });
     } catch (err) {
         next(err);
     }
