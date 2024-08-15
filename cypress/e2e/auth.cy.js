@@ -45,9 +45,20 @@ describe("Auth", () => {
             body: { email: "bobtest@example.com", password: "not_correct123" },
             failOnStatusCode: false,
         }).then((response) => {
-            expect(response.status).to.eq(400);
+            expect(response.status).to.equal(400);
 
             expect(response.body).to.deep.equal({ error: "Invalid credentials provided. Please check your email and password then try again." });
         });
+    });
+
+    it("should successfully log-in and receive a response body with userId and accessToken properties", () => {
+        cy.request("POST", "/auth/log-in", { email: "bobtest@example.com", password: "testing123" })
+            .then((response) => {
+                expect(response.status).to.equal(200);
+
+                expect(response.body).property("userId").to.not.be.undefined;
+
+                expect(response.body).property("accessToken").to.not.be.undefined;
+            });
     });
 });
