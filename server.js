@@ -2,8 +2,12 @@
 
 const express = require("express");
 
+// initialize Passport JS
+require("./config/passport/passport-setup");
+
 // routers
 const authRouter = require("./routes/auth-router");
+const userRouter = require("./routes/user-router");
 
 const app = express();
 
@@ -16,6 +20,7 @@ if (process.env.NODE_ENV === "development" || process.env.NODE_ENV === "testing"
 app.use(express.json());
 // enable API router
 app.use("/api/auth", authRouter);
+app.use("/api/user", userRouter);
 // general server error handler
 app.use((err, req, res, next) => {
     console.error(err);
