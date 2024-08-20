@@ -10,7 +10,7 @@ const options = {
 };
 
 passport.use(
-    new Strategy(options, async function (jwtPayload, done) {
+    new Strategy(options, function (jwtPayload, done) {
         try {
             const currentUser = jwtPayload;
             console.log(currentUser);
