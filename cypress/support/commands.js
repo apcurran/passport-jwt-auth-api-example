@@ -15,9 +15,9 @@ Cypress.Commands.add("createUser", (email, password) => {
     cy.request("POST", "/auth/sign-up", { email, password });
 });
 
-// Cypress.Commands.add("login", (email, password) => {
-
-// });
+Cypress.Commands.add("logIn", (email, password) => {
+    cy.request("POST", "/auth/log-in", { email, password });
+});
 
 //
 //
