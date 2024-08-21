@@ -1,30 +1,13 @@
 describe("Auth", () => {
-    before(() => {
+    beforeEach(() => {
         cy.task("resetDbUsers");
     });
 
-    // sign-up route
-    it("creates a new user with an email and password", () => {
-        cy.request("POST", "/auth/sign-up", { email: "bobtest@example.com", password: "testing123" })
-            .then((response) => {
-                expect(response.status).to.equal(201);
-
-                expect(response.body).to.deep.equal({ message: "Success! You created an account!" });
-            });
-    });
-
-    it("creation of user with the same email is not allowed (email should be unique)", () => {
-        cy.request({ method: "POST", url: "/auth/sign-up", body: { email: "bobtest@example.com", password: "testing123" }, failOnStatusCode: false })
-            .then((response) => {
-                // client error
-                expect(response.status).to.equal(400);
-
-                expect(response.body).to.deep.equal({ error: "Email already exists." });
-            });
-    });
-
-    // log-in route
     it("should fail when given an email that does not exist for any registered users", () => {
+        // create 1 user
+        cy.createUser("bobtest@example.com", "testing123");
+
+        // attempt to log-in with bad credentials
         cy.request({
             method: "POST",
             url: "/auth/log-in",
@@ -39,6 +22,8 @@ describe("Auth", () => {
     });
 
     it("should fail when user tries to send an incorrect password to log-in", () => {
+        cy.createUser("bobtest@example.com", "testing123");
+
         cy.request({
             method: "POST",
             url: "/auth/log-in",
@@ -52,6 +37,8 @@ describe("Auth", () => {
     });
 
     it("should successfully log-in and receive a response body with userId and accessToken properties", () => {
+        cy.createUser("bobtest@example.com", "testing123");
+
         cy.request("POST", "/auth/log-in", { email: "bobtest@example.com", password: "testing123" })
             .then((response) => {
                 expect(response.status).to.equal(200);
