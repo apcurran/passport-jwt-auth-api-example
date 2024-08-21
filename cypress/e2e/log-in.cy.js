@@ -1,4 +1,4 @@
-describe("Auth", () => {
+describe("log in", () => {
     beforeEach(() => {
         cy.task("resetDbUsers");
     });
