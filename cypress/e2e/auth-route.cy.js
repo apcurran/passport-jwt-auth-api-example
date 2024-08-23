@@ -24,4 +24,27 @@ describe("auth protected", () => {
                 });
             });
     });
+
+    it("gives an unauthorized error code after attempting to use a bad (altered) token", () => {
+        const userEmail = "bobtest@example.com";
+        const userPassword = "testing123";
+
+        cy.createUser(userEmail, userPassword);
+
+        cy.logIn(userEmail, userPassword)
+            .then((response) => {
+                const alteredToken = response.body.accessToken.slice(0, -2);
+
+                cy.request({
+                    url: "/user/protected",
+                    method: "GET",
+                    auth: {
+                        bearer: alteredToken,
+                    },
+                    failOnStatusCode: false,
+                }).then((response) => {
+                    expect(response.status).to.equal(401); // unauthorized
+                });
+            });
+    });
 });
